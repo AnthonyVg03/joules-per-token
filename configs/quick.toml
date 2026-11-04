@@ -1,0 +1,39 @@
+# Smoke test (~15 min): one small model, 3 levels, few questions.
+# Run this first to check the setup before configs/sweep.toml.
+
+[settings]
+runs = 3
+max_tokens = 128
+idle_seconds = 3
+quiet_cpu_w = 1.5
+cooldown_seconds = 10
+gsm8k_n = 20
+gsm8k_max_tokens = 384
+perplexity_chunks = 10
+perplexity_ctx = 512
+ctx = 4096
+
+[[model]]
+name = "qwen2.5-1.5b"
+
+[[model.variant]]
+engine = "llama.cpp"
+quant = "F16"
+bits = 16
+repo = "Qwen/Qwen2.5-1.5B-Instruct-GGUF"
+files = ["qwen2.5-1.5b-instruct-fp16.gguf"]
+
+[[model.variant]]
+engine = "llama.cpp"
+quant = "Q8_0"
+bits = 8
+repo = "Qwen/Qwen2.5-1.5B-Instruct-GGUF"
+files = ["qwen2.5-1.5b-instruct-q8_0.gguf"]
+
+[[model.variant]]
+engine = "llama.cpp"
+quant = "Q4_K_M"
+bits = 4
+repo = "Qwen/Qwen2.5-1.5B-Instruct-GGUF"
+files = ["qwen2.5-1.5b-instruct-q4_k_m.gguf"]
+

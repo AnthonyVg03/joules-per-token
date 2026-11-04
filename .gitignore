@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+*.egg-info/
+.venv/
+.DS_Store
+.probe/
+models/*
+!models/.gitkeep
+data/
+results/*.db
+results/logs/
+results/quick*/
+notes/

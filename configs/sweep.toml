@@ -1,0 +1,156 @@
+# Full study: 2 model sizes × 7 llama.cpp quantization levels + 3 MLX levels.
+# Runtime on a MacBook Air M5: several hours (mostly GSM8K). Resumable if interrupted.
+# Disk space: ~25 GB of model weights.
+# Licenses: Qwen2.5-1.5B is Apache 2.0; Qwen2.5-3B is the Qwen Research License (non-commercial).
+
+[settings]
+runs = 3                 # trials per prompt (median reported)
+max_tokens = 256         # tokens generated per trial
+idle_seconds = 5         # idle power measured before each variant
+quiet_cpu_w = 1.5        # wait until idle CPU power drops below this (Spotlight, background jobs)
+cooldown_seconds = 30    # pause between variants (fanless machine)
+gsm8k_n = 100            # GSM8K questions (first N of the test split)
+gsm8k_max_tokens = 512
+perplexity_chunks = 40   # WikiText-2 chunks (40 × 512 tokens)
+perplexity_ctx = 512
+ctx = 4096
+
+[[model]]
+name = "qwen2.5-1.5b"
+
+[[model.variant]]
+engine = "llama.cpp"
+quant = "F16"
+bits = 16
+repo = "Qwen/Qwen2.5-1.5B-Instruct-GGUF"
+files = ["qwen2.5-1.5b-instruct-fp16.gguf"]
+
+[[model.variant]]
+engine = "llama.cpp"
+quant = "Q8_0"
+bits = 8
+repo = "Qwen/Qwen2.5-1.5B-Instruct-GGUF"
+files = ["qwen2.5-1.5b-instruct-q8_0.gguf"]
+
+[[model.variant]]
+engine = "llama.cpp"
+quant = "Q6_K"
+bits = 6
+repo = "Qwen/Qwen2.5-1.5B-Instruct-GGUF"
+files = ["qwen2.5-1.5b-instruct-q6_k.gguf"]
+
+[[model.variant]]
+engine = "llama.cpp"
+quant = "Q5_K_M"
+bits = 5
+repo = "Qwen/Qwen2.5-1.5B-Instruct-GGUF"
+files = ["qwen2.5-1.5b-instruct-q5_k_m.gguf"]
+
+[[model.variant]]
+engine = "llama.cpp"
+quant = "Q4_K_M"
+bits = 4
+repo = "Qwen/Qwen2.5-1.5B-Instruct-GGUF"
+files = ["qwen2.5-1.5b-instruct-q4_k_m.gguf"]
+
+[[model.variant]]
+engine = "llama.cpp"
+quant = "Q3_K_M"
+bits = 3
+repo = "Qwen/Qwen2.5-1.5B-Instruct-GGUF"
+files = ["qwen2.5-1.5b-instruct-q3_k_m.gguf"]
+
+[[model.variant]]
+engine = "llama.cpp"
+quant = "Q2_K"
+bits = 2
+repo = "Qwen/Qwen2.5-1.5B-Instruct-GGUF"
+files = ["qwen2.5-1.5b-instruct-q2_k.gguf"]
+
+[[model.variant]]
+engine = "mlx"
+quant = "bf16"
+bits = 16
+repo = "mlx-community/Qwen2.5-1.5B-Instruct-bf16"
+
+[[model.variant]]
+engine = "mlx"
+quant = "8bit"
+bits = 8
+repo = "mlx-community/Qwen2.5-1.5B-Instruct-8bit"
+
+[[model.variant]]
+engine = "mlx"
+quant = "4bit"
+bits = 4
+repo = "mlx-community/Qwen2.5-1.5B-Instruct-4bit"
+
+[[model]]
+name = "qwen2.5-3b"
+
+[[model.variant]]
+engine = "llama.cpp"
+quant = "F16"
+bits = 16
+repo = "Qwen/Qwen2.5-3B-Instruct-GGUF"
+files = ["qwen2.5-3b-instruct-fp16-00001-of-00002.gguf", "qwen2.5-3b-instruct-fp16-00002-of-00002.gguf"]
+
+[[model.variant]]
+engine = "llama.cpp"
+quant = "Q8_0"
+bits = 8
+repo = "Qwen/Qwen2.5-3B-Instruct-GGUF"
+files = ["qwen2.5-3b-instruct-q8_0.gguf"]
+
+[[model.variant]]
+engine = "llama.cpp"
+quant = "Q6_K"
+bits = 6
+repo = "Qwen/Qwen2.5-3B-Instruct-GGUF"
+files = ["qwen2.5-3b-instruct-q6_k.gguf"]
+
+[[model.variant]]
+engine = "llama.cpp"
+quant = "Q5_K_M"
+bits = 5
+repo = "Qwen/Qwen2.5-3B-Instruct-GGUF"
+files = ["qwen2.5-3b-instruct-q5_k_m.gguf"]
+
+[[model.variant]]
+engine = "llama.cpp"
+quant = "Q4_K_M"
+bits = 4
+repo = "Qwen/Qwen2.5-3B-Instruct-GGUF"
+files = ["qwen2.5-3b-instruct-q4_k_m.gguf"]
+
+[[model.variant]]
+engine = "llama.cpp"
+quant = "Q3_K_M"
+bits = 3
+repo = "Qwen/Qwen2.5-3B-Instruct-GGUF"
+files = ["qwen2.5-3b-instruct-q3_k_m.gguf"]
+
+[[model.variant]]
+engine = "llama.cpp"
+quant = "Q2_K"
+bits = 2
+repo = "Qwen/Qwen2.5-3B-Instruct-GGUF"
+files = ["qwen2.5-3b-instruct-q2_k.gguf"]
+
+[[model.variant]]
+engine = "mlx"
+quant = "bf16"
+bits = 16
+repo = "mlx-community/Qwen2.5-3B-Instruct-bf16"
+
+[[model.variant]]
+engine = "mlx"
+quant = "8bit"
+bits = 8
+repo = "mlx-community/Qwen2.5-3B-Instruct-8bit"
+
+[[model.variant]]
+engine = "mlx"
+quant = "4bit"
+bits = 4
+repo = "mlx-community/Qwen2.5-3B-Instruct-4bit"
