@@ -28,16 +28,20 @@ The tool (`jpt`) has no runtime dependency beyond the Python standard library an
 
 **Recommended configuration on this machine:** Qwen2.5-3B Q4_K_M with llama.cpp. It has the best accuracy measured, uses 2.5 GB, and lies on the Pareto frontier of accuracy, throughput and energy.
 
-<p align="center">
-  <img src="results/main/gsm8k.svg" width="49%" alt="GSM8K accuracy vs bits per weight">
-  <img src="results/main/pareto.svg" width="49%" alt="Accuracy vs energy per token">
-</p>
-<p align="center">
-  <img src="results/main/decode.svg" width="49%" alt="Decode throughput vs bits per weight">
-  <img src="results/main/thermal.svg" width="49%" alt="Throughput under sustained load">
-</p>
+![GSM8K accuracy vs bits per weight](results/main/gsm8k.png)
 
-Full table, all charts and how to read them: [`results/main/report.md`](results/main/report.md). Raw summary: [`results/main/summary.csv`](results/main/summary.csv).
+![Accuracy vs energy per token, with the Pareto frontier](results/main/pareto.png)
+
+## Charts
+
+| | |
+|---|---|
+| ![Decode throughput](results/main/decode.png) | ![Energy per token](results/main/energy.png) |
+| ![Peak memory](results/main/memory.png) | ![Perplexity](results/main/perplexity.png) |
+
+![Throughput under 15 minutes of sustained load](results/main/thermal.png)
+
+Full results table and how to read it: [`results/main/report.md`](results/main/report.md). Raw summary: [`results/main/summary.csv`](results/main/summary.csv).
 
 ## Methodology
 
