@@ -12,7 +12,7 @@ That does not mean nothing changes. Q4_K_M picks the same next token as F16 91% 
 
 ## 2. Prefer a bigger model, compressed harder
 
-The 1.5B model collapses much faster than the 3B: at Q3_K_M it falls to 49% on GSM8K, against 80% for the 3B. And the 3B at Q3 (2.2 GB, 79.7%) beats the 1.5B at full precision (3.4 GB, 74.7%). With a fixed memory budget, take the largest model that fits after quantization.
+The 1.5B model collapses much faster than the 3B: at Q3_K_M it falls to 43% on GSM8K, against 80% for the 3B. And the 3B at Q3 (2.2 GB, 79.7%) beats the 1.5B at full precision (3.4 GB, 74.7%). With a fixed memory budget, take the largest model that fits after quantization.
 
 ## 3. 2.5× faster does not mean 2.5× cheaper
 
