@@ -58,7 +58,7 @@ Wired memory is read from `vm_stat`, the footprint from `proc_pid_rusage` (`ri_p
 
 ## Quality
 
-**GSM8K.** The first 300 problems (100 for the configurations not yet extended) of the test split, sent through the chat endpoint of each engine with the model's chat template. The model is asked to give its final answer as `#### <number>`. The answer is extracted from that marker, with fallbacks to "the answer is N", `\boxed{N}` or the last number, and compared numerically to the reference. Accuracy is reported with a **95% Wilson score interval**: about ±4 points at n = 300 and ±8 to 10 points at n = 100. Differences smaller than the interval are not interpreted.
+**GSM8K.** The first 300 problems of the test split, sent through the chat endpoint of each engine with the model's chat template. The model is asked to give its final answer as `#### <number>`. The answer is extracted from that marker, with fallbacks to "the answer is N", `\boxed{N}` or the last number, and compared numerically to the reference. Accuracy is reported with a **95% Wilson score interval**: about ±4 to 5 points at n = 300. Differences smaller than the interval are not interpreted.
 
 **Perplexity.** WikiText-2 (raw) test set, measured with `llama-perplexity` on 40 chunks of 512 tokens. Perplexity measures how well the model predicts held-out text and is more sensitive than GSM8K to small degradations. It is computed for llama.cpp configurations only.
 
@@ -79,7 +79,6 @@ A configuration **dominates** another if it is at least as good on GSM8K accurac
 
 - **Two unstable configurations.** Qwen2.5-1.5B Q3_K_M and Q2_K still exceed 10% CV on decode throughput despite the pauses and the thermal gate.
 - **MLX memory is likely overestimated.** The wired-memory delta also includes MLX's buffer cache, which is not freed between requests.
-- **Mixed GSM8K sample sizes** while the extension to 300 problems for every configuration is completed.
 
 ## Changes from the first run
 

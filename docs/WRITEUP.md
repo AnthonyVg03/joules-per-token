@@ -22,7 +22,7 @@ The reason: generating a token means reading every weight from memory once. Smal
 
 ## 4. The engine matters as much as the bit count
 
-At 4 bits, Apple's MLX uses 28% less energy per token than llama.cpp at the same speed. But its simpler 4-bit scheme costs about 10 GSM8K points (74% vs 85%). llama.cpp's K-quants keep more precision where the model is sensitive, and it shows.
+At 4 bits, Apple's MLX uses 28% less energy per token than llama.cpp at the same speed. But its simpler 4-bit scheme costs about 5 GSM8K points (80% vs 85%). llama.cpp's K-quants keep more precision where the model is sensitive, and it shows.
 
 ## 5. A 30-second benchmark lies on a fanless laptop
 
