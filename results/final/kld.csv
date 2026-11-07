@@ -1,0 +1,13 @@
+variant,bpw,mean_kld,same_top_token_pct
+qwen2.5-1.5b/llama.cpp/Q8_0,8.5,0.00042,98.676
+qwen2.5-1.5b/llama.cpp/Q6_K,6.56,0.004413,95.863
+qwen2.5-1.5b/llama.cpp/Q5_K_M,5.76,0.01075,94.275
+qwen2.5-1.5b/llama.cpp/Q4_K_M,5.0,0.036248,90.598
+qwen2.5-1.5b/llama.cpp/Q3_K_M,4.13,0.114367,82.941
+qwen2.5-1.5b/llama.cpp/Q2_K,3.36,0.524586,66.833
+qwen2.5-3b/llama.cpp/Q8_0,8.5,0.000338,98.843
+qwen2.5-3b/llama.cpp/Q6_K,6.56,0.003788,96.873
+qwen2.5-3b/llama.cpp/Q5_K_M,5.73,0.009051,95.01
+qwen2.5-3b/llama.cpp/Q4_K_M,4.94,0.030533,91.343
+qwen2.5-3b/llama.cpp/Q3_K_M,4.05,0.102436,85.412
+qwen2.5-3b/llama.cpp/Q2_K,3.23,0.460258,70.118

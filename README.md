@@ -6,7 +6,7 @@ Quantizing a model from 16 to 4 bits makes it smaller and faster. The usual clai
 
 - 2 models of the same family: Qwen2.5-1.5B-Instruct and Qwen2.5-3B-Instruct
 - 2 inference engines: llama.cpp (F16, Q8_0, Q6_K, Q5_K_M, Q4_K_M, Q3_K_M, Q2_K) and MLX (bf16, 8-bit, 4-bit)
-- 5 axes per configuration: decode/prefill throughput, peak memory, energy per token, GSM8K accuracy, WikiText-2 perplexity, plus a 15-minute sustained-load run
+- 6 axes per configuration: decode/prefill throughput, peak memory, energy per token, GSM8K accuracy, WikiText-2 perplexity, KL divergence from the F16 model, plus a 15-minute sustained-load run
 
 The tool (`jpt`) has no runtime dependency beyond the Python standard library and reads Apple's hardware energy counters directly, without `sudo`.
 
@@ -14,43 +14,43 @@ The tool (`jpt`) has no runtime dependency beyond the Python standard library an
 
 | | Qwen2.5-3B F16 | Qwen2.5-3B Q4_K_M | Change |
 |---|---|---|---|
-| Decode throughput | 21.3 tok/s | 54.2 tok/s | ×2.5 |
-| Energy per token | 0.370 J | 0.275 J | −26% |
-| Peak memory | 6.4 GB | 2.5 GB | −61% |
-| GSM8K accuracy (n = 100) | 80% [71–87] | 84% [76–90] | within CI |
+| Decode throughput | 21.2 tok/s | 53.3 tok/s | ×2.5 |
+| Energy per token | 0.366 J | 0.262 J | −28% |
+| Peak memory | 6.3 GB | 2.5 GB | −61% |
+| GSM8K accuracy (n = 300) | 85.0% [81–89] | 84.7% [80–88] | none |
+| Same top token as F16 | 100% | 91.3% | −8.7 pts |
 | Perplexity (WikiText-2) | 8.07 | 8.32 | +3% |
 
-1. **Down to ~4 bits, no measurable accuracy loss.** F16, Q8, Q6, Q5 and Q4 all fall within the same 95% confidence interval on GSM8K, and perplexity rises by less than 4%. Below 4 bits the drop is sharp, and much sharper for the smaller model: at Q3_K_M the 1.5B falls to 49% while the 3B holds 76%.
-2. **A larger compressed model beats a smaller full-precision one.** The 3B at Q3_K_M (2.2 GB, 76%) matches the 1.5B at F16 (3.4 GB, 77%) with 35% less memory.
-3. **Speed improves far more than energy.** Decoding is memory-bandwidth bound: lighter weights are read faster, but the chip draws more power while doing so (7.8 W at F16, 14.1 W at Q4_K_M). Energy per token therefore drops by a quarter, not by a factor of four.
-4. **The engine matters as much as the format.** At 4 bits on the 3B model, MLX uses 31% less energy per token than llama.cpp (0.190 vs 0.275 J) at the same speed, but its simpler 4-bit scheme costs 10 points on GSM8K (74% vs 84%).
+1. **Down to ~4 bits, no measurable accuracy loss.** On 300 GSM8K problems, the 3B model scores 85.0% in F16 and 84.3–84.7% in Q8_0, Q6_K, Q5_K_M and Q4_K_M. The degradation is real but small: Q4_K_M still picks the same next token as F16 91% of the time (mean KL divergence 0.03). Below 4 bits it accelerates, and hits the smaller model harder: at Q3_K_M the 1.5B falls to 49% on GSM8K while the 3B holds 76%.
+2. **A larger compressed model beats a smaller full-precision one.** The 3B at Q3_K_M (2.2 GB, 76%) matches the 1.5B at F16 (3.4 GB, 77%) with 35% less memory, and stays closer to its own F16 model than the 1.5B does at every quantization level.
+3. **Speed improves far more than energy.** Decoding is memory-bandwidth bound: lighter weights are read faster, but the chip draws more power while doing so (7.8 W at F16, 13.4 W at Q4_K_M). Energy per token therefore drops by about a quarter, not by a factor of four.
+4. **The engine matters as much as the format.** At 4 bits on the 3B model, MLX uses 28% less energy per token than llama.cpp (0.189 vs 0.262 J) at a similar speed, but its simpler 4-bit scheme costs about 10 points on GSM8K (74% vs 84–85%).
 5. **Short benchmarks overstate sustained speed.** Under 15 minutes of continuous load the fanless chip throttles: Q4_K_M drops from 54 to 45 tok/s (−16%), F16 by −10%. The faster configuration draws more power and is throttled more.
 
-**Recommended configuration on this machine:** Qwen2.5-3B Q4_K_M with llama.cpp. It has the best accuracy measured, uses 2.5 GB, and lies on the Pareto frontier of accuracy, throughput and energy.
+**Recommended configuration on this machine:** Qwen2.5-3B Q4_K_M with llama.cpp. It matches F16 accuracy (84.7% vs 85.0%) with 2.5× the speed and 39% of the memory, and lies on the Pareto frontier of accuracy, throughput and energy.
 
-![GSM8K accuracy vs bits per weight](results/main/gsm8k.png)
+![GSM8K accuracy vs bits per weight](results/final/gsm8k.png)
 
-![Accuracy vs energy per token, with the Pareto frontier](results/main/pareto.png)
+![Accuracy vs energy per token, with the Pareto frontier](results/final/pareto.png)
 
 ## Charts
 
 | | |
 |---|---|
-| ![Decode throughput](results/main/decode.png) | ![Energy per token](results/main/energy.png) |
-| ![Peak memory](results/main/memory.png) | ![Perplexity](results/main/perplexity.png) |
+| ![Decode throughput](results/final/decode.png) | ![Energy per token](results/final/energy.png) |
+| ![Peak memory](results/final/memory.png) | ![Perplexity](results/final/perplexity.png) |
+| ![Agreement with the F16 model](results/final/kld.png) | ![Throughput under 15 minutes of sustained load](results/final/thermal.png) |
 
-![Throughput under 15 minutes of sustained load](results/main/thermal.png)
-
-Full results table and how to read it: [`results/main/report.md`](results/main/report.md). Raw summary: [`results/main/summary.csv`](results/main/summary.csv).
+Full results table and how to read it: [`results/final/report.md`](results/final/report.md). Raw data: [`summary.csv`](results/final/summary.csv), [`kld.csv`](results/final/kld.csv).
 
 ## Methodology
 
 Detailed in [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md). In short:
 
-- **Throughput.** One unmeasured warm-up, then 3 trials per prompt, median reported with its coefficient of variation. Greedy decoding, fixed output length, prompt cache disabled so prefill is paid on every trial. llama.cpp timings come from the server; MLX timings from client-side stream timestamps.
+- **Throughput.** One unmeasured warm-up, then 3 trials per prompt separated by a 10 s pause, median reported with its coefficient of variation. Each configuration starts only once the chip is back to its nominal thermal state. Greedy decoding, fixed output length, prompt cache defeated so prefill is paid on every trial. llama.cpp timings come from the server; MLX timings from client-side stream timestamps.
 - **Energy.** Cumulative IOReport *Energy Model* counters (CPU, GPU, ANE, DRAM) read just before and after each request, so there is no sampling or integration error. Idle power is measured before every variant and subtracted for the dynamic figure. Measurements wait until background CPU activity has settled.
 - **Memory.** On Apple Silicon, model weights live in wired GPU memory that is not attributed to the server process. Peak memory is the increase in system wired memory plus the process footprint.
-- **Quality.** GSM8K (first 100 test problems, chat template, exact match on the final number, 95% Wilson interval) and WikiText-2 perplexity (`llama-perplexity`, 40 chunks of 512 tokens, llama.cpp only).
+- **Quality.** GSM8K (first 300 test problems for the 3B llama.cpp variants up to Q4_K_M, first 100 elsewhere; chat template, exact match on the final number, 95% Wilson interval), WikiText-2 perplexity and KL divergence from the F16 model (`llama-perplexity`, 40 chunks of 512 tokens, llama.cpp only).
 - **Compression.** Bits per weight are computed from file size and parameter count rather than from the quantization label.
 - **Selection.** A configuration is on the Pareto frontier when no other one is at least as good on accuracy, throughput and energy, and strictly better on one.
 
@@ -96,7 +96,7 @@ src/jpt/
   svg.py       dependency-free SVG charts
   store.py     SQLite schema
 configs/       sweep.toml (full study), quick.toml (smoke test)
-results/main/  report, charts and summary of the study
+results/final/ report, charts and data of the study
 tests/         unit tests against a fake inference server (no model required)
 ```
 
@@ -107,16 +107,16 @@ Tests: `python -m unittest discover -s tests`.
 - **Scope.** One machine, one model family, two sizes. Results should not be extrapolated to 7B+ models or to chips with active cooling.
 - **Statistical power.** 100 GSM8K problems give confidence intervals of ±8 to 10 points; smaller differences are not significant.
 - **Energy is measured for the whole SoC**, not the model alone. Idle subtraction and medians reduce, but do not remove, background noise.
-- **MLX prefill and time-to-first-token in this run are not valid.** The request used to read the prompt length was sent before the timed request and warmed MLX's prompt cache. This is fixed in the code; MLX speed figures will be re-measured.
-- **Some 1.5B llama.cpp throughput runs are unstable** (CV above 10%, marked in the report) because of thermal state carry-over between trials. A pause between trials and a cool-down gate are now implemented; these variants will be re-measured on AC power.
+- **Two 1.5B llama.cpp variants (Q3_K_M, Q2_K) remain unstable** (CV above 10%) even with pauses between trials; their throughput should be read as indicative.
 - **MLX peak memory is likely overestimated**, because the wired-memory delta also includes MLX's buffer cache.
+- **Mixed GSM8K sample sizes.** Extending every configuration to 300 problems is in progress; until then intervals differ between rows.
 
 ## Roadmap
 
-- Re-run the affected measurements with the fixes above
-- KL divergence against the F16 model, a finer measure of degradation than perplexity
+- GSM8K on 300+ problems for every configuration
 - A 7–8B model to test whether the "larger and more compressed" result holds
-- Prefill/decode energy split and long-context behaviour
+- A second model family (Llama, Mistral or Gemma)
+- Prefill/decode energy split and long-context behaviour (8k–32k tokens)
 
 ## Related work
 

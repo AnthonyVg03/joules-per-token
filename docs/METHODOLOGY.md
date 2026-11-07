@@ -23,8 +23,8 @@ Three prompts cover different regimes: a long-form explanation, a code-generatio
 For each configuration:
 
 1. The server is started and a warm-up request is sent and discarded.
-2. Each prompt is run 3 times with greedy decoding (`temperature = 0`) and a fixed output length.
-3. Prompt caching is disabled, so prefill is paid on every trial.
+2. Each prompt is run 3 times with greedy decoding (`temperature = 0`) and a fixed output length, with a 10 s pause between trials. Before each configuration, the run waits (up to 10 min) for the macOS thermal state to return to nominal, so no configuration inherits heat from the previous one.
+3. Prompt caching is defeated, so prefill is paid on every trial: llama.cpp is called with `cache_prompt: false`; for MLX, whose server reuses the longest cached prefix, every request starts with a unique tag so that no prefix is shared.
 
 Reported values are the **median** over trials:
 
@@ -58,9 +58,11 @@ Wired memory is read from `vm_stat`, the footprint from `proc_pid_rusage` (`ri_p
 
 ## Quality
 
-**GSM8K.** The first 100 problems of the test split, sent through the chat endpoint of each engine with the model's chat template. The model is asked to give its final answer as `#### <number>`. The answer is extracted from that marker, with fallbacks to "the answer is N", `\boxed{N}` or the last number, and compared numerically to the reference. Accuracy is reported with a **95% Wilson score interval**: at n = 100 the interval is about ±8 to 10 points, and differences smaller than that are not interpreted.
+**GSM8K.** The first 300 problems (3B llama.cpp, F16 to Q4_K_M) or 100 problems (other configurations) of the test split, sent through the chat endpoint of each engine with the model's chat template. The model is asked to give its final answer as `#### <number>`. The answer is extracted from that marker, with fallbacks to "the answer is N", `\boxed{N}` or the last number, and compared numerically to the reference. Accuracy is reported with a **95% Wilson score interval**: about ±4 points at n = 300 and ±8 to 10 points at n = 100. Differences smaller than the interval are not interpreted.
 
 **Perplexity.** WikiText-2 (raw) test set, measured with `llama-perplexity` on 40 chunks of 512 tokens. Perplexity measures how well the model predicts held-out text and is more sensitive than GSM8K to small degradations. It is computed for llama.cpp configurations only.
+
+**KL divergence.** `llama-perplexity` first saves the F16 model's full next-token distributions on the same 40 WikiText-2 chunks, then compares each quantized model against them. Two figures are reported: the mean KL divergence between the two distributions, and the share of positions where both models rank the same token first. Unlike GSM8K, which only checks final answers, this measures how far the compressed model drifts from the original at every token, with tight intervals.
 
 ## Selection
 
@@ -75,6 +77,10 @@ A configuration **dominates** another if it is at least as good on GSM8K accurac
 
 ## Known issues in the current results
 
-- **MLX prefill and time to first token are invalid.** A request used to read the prompt length was sent before the timed request and populated MLX's prompt cache, making prefill appear about 10× faster. The request is now sent after timing; these figures will be re-measured. Decode throughput, energy and accuracy are not affected.
-- **Unstable 1.5B llama.cpp throughput.** Several runs exceed 10% CV, attributed to thermal state carried over from previous trials. A pause between trials and a gate that waits for the nominal thermal state before each configuration are now implemented.
+- **Two unstable configurations.** Qwen2.5-1.5B Q3_K_M and Q2_K still exceed 10% CV on decode throughput despite the pauses and the thermal gate.
 - **MLX memory is likely overestimated.** The wired-memory delta also includes MLX's buffer cache, which is not freed between requests.
+- **Mixed GSM8K sample sizes** while the extension to 300 problems for every configuration is completed.
+
+## Changes from the first run
+
+The first run had MLX prefill and time-to-first-token about 10× too fast (a request sent just before the timed one warmed MLX's prompt cache) and several unstable 1.5B throughput figures (heat carried over between trials). Both were fixed (unique request prefix; pauses between trials and a thermal gate) and every speed, memory and energy figure was re-measured.

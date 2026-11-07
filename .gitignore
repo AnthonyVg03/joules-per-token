@@ -11,3 +11,7 @@ results/*.db
 results/logs/
 results/quick*/
 notes/
+results/main/
+results/v2/
+results/gsm300/
+results/test/

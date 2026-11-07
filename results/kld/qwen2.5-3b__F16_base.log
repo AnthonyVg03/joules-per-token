@@ -1,0 +1,12 @@
+0.00.231.753 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden
+0.02.071.582 I cmn          init: llama threadpool init, n_threads = 4
+0.02.128.430 I 
+0.02.128.449 I system_info: n_threads = 4 (n_threads_batch = 4) / 10 | MTL : EMBED_LIBRARY = 1 | CPU : NEON = 1 | ARM_FMA = 1 | FP16_VA = 1 | MATMUL_INT8 = 1 | DOTPROD = 1 | SME = 1 | ACCELERATE = 1 | OPENMP = 1 | REPACK = 1 | 
+0.02.128.518 I perplexity: saving all logits to results/kld/qwen2.5-3b-f16.kld
+0.02.128.522 I perplexity: tokenizing the input ..
+0.02.343.456 I perplexity: tokenization took 214.928 ms
+0.02.343.539 I perplexity: calculating perplexity over 40 chunks, n_ctx=512, batch_size=2048, n_seq=4
+0.03.977.165 I perplexity: 1.60 seconds per pass - ETA 0.25 minutes
+[1]6.6553,[2]9.0501,[3]8.5531,[4]8.4026,[5]8.4661,[6]8.7568,[7]8.8538,[8]9.3175,[9]9.8215,[10]10.1789,[11]10.0890,[12]10.2605,[13]10.6411,[14]10.2959,[15]10.1664,[16]10.3323,[17]9.7366,[18]9.7841,[19]9.6776,[20]9.6266,[21]9.3693,[22]9.3742,[23]9.0126,[24]8.5813,[25]8.3621,[26]8.1832,[27]7.9804,[28]7.8490,[29]7.9175,[30]7.8525,[31]7.7995,[32]7.8017,[33]7.7010,[34]7.7333,[35]7.8123,[36]7.8979,[37]8.0049,[38]8.0630,[39]8.0073,[40]8.0690,
+0.20.614.969 I Final estimate: PPL = 8.0690 +/- 0.21201
+

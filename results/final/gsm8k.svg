@@ -42,14 +42,14 @@
 <circle cx="454.0" cy="144.5" r="3.5" fill="#dc2626"><title>qwen2.5-1.5b · mlx: 16 → 70</title></circle>
 <rect x="566" y="71" width="12" height="12" rx="2" fill="#dc2626"/>
 <text x="584" y="81" fill="#111">qwen2.5-1.5b · mlx</text>
-<path d="M147.5,172.8 L167.2,125.6 L188.6,100.4 L207.5,109.8 L227.4,113.0 L274.0,119.3 L454.0,113.0" fill="none" stroke="#16a34a" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M147.5,172.8 L167.2,125.6 L188.6,98.3 L207.5,99.3 L227.4,99.3 L274.0,99.3 L454.0,97.2" fill="none" stroke="#16a34a" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
 <circle cx="147.5" cy="172.8" r="3.5" fill="#16a34a"><title>qwen2.5-3b · llama.cpp: 3.23 → 61</title></circle>
 <circle cx="167.2" cy="125.6" r="3.5" fill="#16a34a"><title>qwen2.5-3b · llama.cpp: 4.05 → 76</title></circle>
-<circle cx="188.6" cy="100.4" r="3.5" fill="#16a34a"><title>qwen2.5-3b · llama.cpp: 4.94 → 84</title></circle>
-<circle cx="207.5" cy="109.8" r="3.5" fill="#16a34a"><title>qwen2.5-3b · llama.cpp: 5.73 → 81</title></circle>
-<circle cx="227.4" cy="113.0" r="3.5" fill="#16a34a"><title>qwen2.5-3b · llama.cpp: 6.56 → 80</title></circle>
-<circle cx="274.0" cy="119.3" r="3.5" fill="#16a34a"><title>qwen2.5-3b · llama.cpp: 8.5 → 78</title></circle>
-<circle cx="454.0" cy="113.0" r="3.5" fill="#16a34a"><title>qwen2.5-3b · llama.cpp: 16 → 80</title></circle>
+<circle cx="188.6" cy="98.3" r="3.5" fill="#16a34a"><title>qwen2.5-3b · llama.cpp: 4.94 → 84.7</title></circle>
+<circle cx="207.5" cy="99.3" r="3.5" fill="#16a34a"><title>qwen2.5-3b · llama.cpp: 5.73 → 84.3</title></circle>
+<circle cx="227.4" cy="99.3" r="3.5" fill="#16a34a"><title>qwen2.5-3b · llama.cpp: 6.56 → 84.3</title></circle>
+<circle cx="274.0" cy="99.3" r="3.5" fill="#16a34a"><title>qwen2.5-3b · llama.cpp: 8.5 → 84.3</title></circle>
+<circle cx="454.0" cy="97.2" r="3.5" fill="#16a34a"><title>qwen2.5-3b · llama.cpp: 16 → 85</title></circle>
 <rect x="566" y="91" width="12" height="12" rx="2" fill="#16a34a"/>
 <text x="584" y="101" fill="#111">qwen2.5-3b · llama.cpp</text>
 <path d="M166.0,131.9 L262.0,106.7 L454.0,100.4" fill="none" stroke="#9333ea" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>

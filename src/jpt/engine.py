@@ -155,6 +155,10 @@ class OpenAIClient:
         return p
 
     def generate(self, prompt: str, max_tokens: int, ignore_eos: bool = True) -> Generation:
+        # mlx_lm.server reuses the longest cached prefix of a previous prompt. A unique tag at the
+        # start of every request leaves no shared prefix, so each trial pays the full prefill.
+        self._calls = getattr(self, "_calls", 0) + 1
+        prompt = f"[request {self._calls} {time.time_ns()}]\n{prompt}"
         text, times = [], []
         t0 = time.perf_counter()
         with _post(self.base + "/v1/completions", self._payload(prompt=prompt, max_tokens=max_tokens, stream=True)) as resp:
@@ -165,8 +169,7 @@ class OpenAIClient:
                     times.append(time.perf_counter() - t0)
                     text.append(piece)
         wall = time.perf_counter() - t0
-        # Prompt length, asked only now: asked before, this call would put the exact prompt in
-        # mlx_lm's prompt cache and the timed prefill would look ~10x faster than it is.
+        # Prompt length, asked only after the timed request so it cannot warm the cache for it.
         usage = _post_json(self.base + "/v1/completions", self._payload(prompt=prompt, max_tokens=1)).get("usage") or {}
         n_prompt = int(usage.get("prompt_tokens") or 0)
         return _build(text, times, wall, {}, n_prompt=n_prompt)
