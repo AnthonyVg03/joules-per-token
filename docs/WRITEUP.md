@@ -8,11 +8,11 @@ For each configuration I measured generation speed, prompt processing speed, pea
 
 On 300 GSM8K problems, Qwen2.5-3B scores 85.0% in F16 and 84.7% in Q4_K_M. Q8, Q6 and Q5 land at 84.3%. Statistically, these are the same model.
 
-That does not mean nothing changes. Q4_K_M picks the same next token as F16 91% of the time. The model drifts, but not in ways that change final answers. Below 4 bits the drift accelerates: 85% agreement at Q3, 70% at Q2, and GSM8K accuracy follows (76%, then 61%).
+That does not mean nothing changes. Q4_K_M picks the same next token as F16 91% of the time. The model drifts, but not in ways that change final answers. Below 4 bits the drift accelerates: 85% agreement at Q3, 70% at Q2, and GSM8K accuracy follows (80%, then 60%).
 
 ## 2. Prefer a bigger model, compressed harder
 
-The 1.5B model collapses much faster than the 3B: at Q3_K_M it falls to 49% on GSM8K, against 76% for the 3B. And the 3B at Q3 (2.2 GB) matches the 1.5B at full precision (3.4 GB). With a fixed memory budget, take the largest model that fits after quantization.
+The 1.5B model collapses much faster than the 3B: at Q3_K_M it falls to 49% on GSM8K, against 80% for the 3B. And the 3B at Q3 (2.2 GB, 79.7%) beats the 1.5B at full precision (3.4 GB, 74.7%). With a fixed memory budget, take the largest model that fits after quantization.
 
 ## 3. 2.5× faster does not mean 2.5× cheaper
 

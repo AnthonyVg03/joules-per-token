@@ -26,14 +26,14 @@
 <line x1="70" x2="550" y1="365" y2="365" stroke="#9ca3af"/>
 <text x="310.0" y="408" text-anchor="middle" fill="#374151">bits per weight</text>
 <text x="16" y="207.5" text-anchor="middle" fill="#374151" transform="rotate(-90 16 207.5)">accuracy (%)</text>
-<path d="M150.6,320.9 L169.1,210.7 L190.0,128.8 L208.2,135.1 L227.4,135.1 L274.0,135.1 L454.0,122.4" fill="none" stroke="#2563eb" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M150.6,320.9 L169.1,210.7 L190.0,134.0 L208.2,132.9 L227.4,128.8 L274.0,135.1 L454.0,129.8" fill="none" stroke="#2563eb" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
 <circle cx="150.6" cy="320.9" r="3.5" fill="#2563eb"><title>qwen2.5-1.5b · llama.cpp: 3.36 → 14</title></circle>
 <circle cx="169.1" cy="210.7" r="3.5" fill="#2563eb"><title>qwen2.5-1.5b · llama.cpp: 4.13 → 49</title></circle>
-<circle cx="190.0" cy="128.8" r="3.5" fill="#2563eb"><title>qwen2.5-1.5b · llama.cpp: 5 → 75</title></circle>
-<circle cx="208.2" cy="135.1" r="3.5" fill="#2563eb"><title>qwen2.5-1.5b · llama.cpp: 5.76 → 73</title></circle>
-<circle cx="227.4" cy="135.1" r="3.5" fill="#2563eb"><title>qwen2.5-1.5b · llama.cpp: 6.56 → 73</title></circle>
+<circle cx="190.0" cy="134.0" r="3.5" fill="#2563eb"><title>qwen2.5-1.5b · llama.cpp: 5 → 73.3</title></circle>
+<circle cx="208.2" cy="132.9" r="3.5" fill="#2563eb"><title>qwen2.5-1.5b · llama.cpp: 5.76 → 73.7</title></circle>
+<circle cx="227.4" cy="128.8" r="3.5" fill="#2563eb"><title>qwen2.5-1.5b · llama.cpp: 6.56 → 75</title></circle>
 <circle cx="274.0" cy="135.1" r="3.5" fill="#2563eb"><title>qwen2.5-1.5b · llama.cpp: 8.5 → 73</title></circle>
-<circle cx="454.0" cy="122.4" r="3.5" fill="#2563eb"><title>qwen2.5-1.5b · llama.cpp: 16 → 77</title></circle>
+<circle cx="454.0" cy="129.8" r="3.5" fill="#2563eb"><title>qwen2.5-1.5b · llama.cpp: 16 → 74.7</title></circle>
 <rect x="566" y="51" width="12" height="12" rx="2" fill="#2563eb"/>
 <text x="584" y="61" fill="#111">qwen2.5-1.5b · llama.cpp</text>
 <path d="M166.0,166.6 L262.0,144.5 L454.0,144.5" fill="none" stroke="#dc2626" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
@@ -42,9 +42,9 @@
 <circle cx="454.0" cy="144.5" r="3.5" fill="#dc2626"><title>qwen2.5-1.5b · mlx: 16 → 70</title></circle>
 <rect x="566" y="71" width="12" height="12" rx="2" fill="#dc2626"/>
 <text x="584" y="81" fill="#111">qwen2.5-1.5b · mlx</text>
-<path d="M147.5,172.8 L167.2,125.6 L188.6,98.3 L207.5,99.3 L227.4,99.3 L274.0,99.3 L454.0,97.2" fill="none" stroke="#16a34a" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-<circle cx="147.5" cy="172.8" r="3.5" fill="#16a34a"><title>qwen2.5-3b · llama.cpp: 3.23 → 61</title></circle>
-<circle cx="167.2" cy="125.6" r="3.5" fill="#16a34a"><title>qwen2.5-3b · llama.cpp: 4.05 → 76</title></circle>
+<path d="M147.5,174.9 L167.2,114.1 L188.6,98.3 L207.5,99.3 L227.4,99.3 L274.0,99.3 L454.0,97.2" fill="none" stroke="#16a34a" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="147.5" cy="174.9" r="3.5" fill="#16a34a"><title>qwen2.5-3b · llama.cpp: 3.23 → 60.3</title></circle>
+<circle cx="167.2" cy="114.1" r="3.5" fill="#16a34a"><title>qwen2.5-3b · llama.cpp: 4.05 → 79.7</title></circle>
 <circle cx="188.6" cy="98.3" r="3.5" fill="#16a34a"><title>qwen2.5-3b · llama.cpp: 4.94 → 84.7</title></circle>
 <circle cx="207.5" cy="99.3" r="3.5" fill="#16a34a"><title>qwen2.5-3b · llama.cpp: 5.73 → 84.3</title></circle>
 <circle cx="227.4" cy="99.3" r="3.5" fill="#16a34a"><title>qwen2.5-3b · llama.cpp: 6.56 → 84.3</title></circle>
