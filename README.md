@@ -41,7 +41,7 @@ The tool (`jpt`) has no runtime dependency beyond the Python standard library an
 | ![Peak memory](results/final/memory.png) | ![Perplexity](results/final/perplexity.png) |
 | ![Agreement with the F16 model](results/final/kld.png) | ![Throughput under 15 minutes of sustained load](results/final/thermal.png) |
 
-A short narrative of the findings: [`docs/WRITEUP.md`](docs/WRITEUP.md). Full results table and how to read it: [`results/final/report.md`](results/final/report.md). Raw data: [`summary.csv`](results/final/summary.csv), [`kld.csv`](results/final/kld.csv).
+A short narrative of the findings: [`docs/WRITEUP.md`](docs/WRITEUP.md). Technical report (PDF): [English](docs/report_en.pdf), [français](docs/rapport_fr.pdf). Full results table and how to read it: [`results/final/report.md`](results/final/report.md). Raw data: [`summary.csv`](results/final/summary.csv), [`kld.csv`](results/final/kld.csv).
 
 ## Methodology
 
